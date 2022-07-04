@@ -5,13 +5,15 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit",
+    "test:unit": "vue-cli-service test:unit --watch",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "lodash": "^4.17.21",
     "vue": "^3.0.0",
+    "vue-lodash": "^2.1.2",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"
   },
