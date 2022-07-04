@@ -6,7 +6,7 @@ import * as commonModule from "@/store/modules/common";
 
 const store = createStore({
   modules: {
-    common: _.cloneDeep(commonModule),
+    common: { namespaced: true, ..._.cloneDeep(commonModule) },
   },
 });
 

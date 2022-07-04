@@ -1,19 +1,21 @@
 import { createStore } from "vuex";
-import * as commonModule from "./modules/common";
-import * as authModule from "./modules/auth";
 
-export default createStore({
-  // state: {
-  //   count: 1,
-  // },
-  // mutations: {
-  //   increment(state) {
-  //     state.count += 1;
-  //   },
-  // },
-  // actions: {},
-  modules: {
-    common: { namespaced: true, ...commonModule },
-    auth: { namespaced: true, authModule },
-  },
+const requireContext = require.context("./modules", false, /.*\.js$/);
+
+// Load store modules dynamically.
+const storeModule = requireContext
+  .keys()
+  .map((file) => [file.replace(/(^.\/)|(\.js$)/g, ""), requireContext(file)])
+  .reduce((modules, [name, moduleItem]) => {
+    if (moduleItem.namespaced === undefined) {
+      // eslint-disable-next-line no-param-reassign
+      moduleItem.namespaced = true;
+    }
+    return { ...modules, [name]: moduleItem };
+  }, {});
+
+const store = createStore({
+  modules: storeModule,
 });
+
+export default store;
